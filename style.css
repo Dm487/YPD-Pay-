@@ -1,0 +1,750 @@
+
+/* ========================================
+   YPD PAY — LTI PAYMENT PORTAL
+   Theme: Green, White & Soft Grey
+======================================== */
+
+/* 1. Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #087443;
+    --primary-dark: #065a34;
+    --primary-light: #e8f5ed;
+    --accent: #c9a227;
+    --background: #f4f7f5;
+    --surface: #ffffff;
+    --text: #202923;
+    --muted: #69756d;
+    --border: #dce5de;
+    --warning-bg: #fff8e7;
+    --warning-text: #856404;
+    --radius: 12px;
+    --shadow: 0 8px 30px rgba(20, 50, 30, 0.07);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+
+/* 2. Header */
+
+/* Header */
+.header {
+    background-color: #176b3a;
+    color: #ffffff;
+    padding: 18px 24px;
+}
+
+/* Logo section */
+.logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+/* Logo image */
+.logo-image {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Logo text */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.logo span {
+    color: #d8f3df;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+    .header {
+        padding: 14px 16px;
+    }
+
+    .logo-image {
+        width: 52px;
+        height: 52px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .header-subtitle {
+        font-size: 12px;
+    }
+}
+
+
+.header {
+    background: var(--primary);
+    color: white;
+    min-height: 90px;
+    padding: 18px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 4px solid var(--accent);
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.logo span {
+    font-weight: 900;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+}
+
+
+/* 3. Main Container */
+
+.container {
+    width: 92%;
+    max-width: 760px;
+    margin: 42px auto;
+}
+
+
+/* 4. Payment Card */
+
+.payment-card,
+.confirmation-card {
+    background: var(--surface);
+    padding: 36px;
+    border: 1px solid #e8eee9;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+
+/* 5. Page Heading */
+
+.card-heading {
+    margin-bottom: 28px;
+}
+
+.card-heading h1,
+.confirmation-card h1 {
+    color: var(--primary);
+    font-size: 29px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.card-heading > p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+
+/* 6. Important Notice */
+
+.notice {
+    margin-top: 22px;
+    padding: 13px 16px;
+
+    background: var(--warning-bg);
+    color: var(--warning-text);
+
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+
+/* 7. Form Sections */
+
+.section {
+    border-top: 1px solid var(--border);
+    padding-top: 26px;
+    margin-top: 26px;
+}
+
+.section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 19px;
+}
+
+
+/* 8. Form Groups */
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #35443a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #ccd8cf;
+    border-radius: 8px;
+
+    background: #fff;
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    color: #9aa59d;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(8, 116, 67, 0.10);
+}
+
+
+/* 9. Registration Categories */
+
+.category-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.category-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+
+    padding: 17px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: #fff;
+    cursor: pointer;
+
+    transition: background 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.category-option:hover {
+    border-color: var(--primary);
+    background: #f8fcf9;
+}
+
+.category-option:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.category-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+
+    flex-shrink: 0;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.category-option > div {
+    flex: 1;
+}
+
+.category-option strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.category-option p {
+    margin-top: 5px;
+    color: var(--primary);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+
+/* 10. Amount Display */
+
+.amount-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    padding: 19px;
+
+    background: var(--primary-light);
+    border: 1px solid #cce5d5;
+    border-radius: 10px;
+}
+
+.amount-box span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.amount-box strong {
+    color: var(--primary);
+    font-size: 27px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+
+/* 11. Help Text */
+
+.help-text {
+    margin-bottom: 16px;
+
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* 12. Mobile Money Information */
+
+.mobile-money-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.mobile-money-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    min-width: 0;
+    padding: 17px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: #fbfdfb;
+}
+
+.mobile-money-card strong {
+    color: var(--primary);
+    font-size: 15px;
+}
+
+.mobile-money-card span {
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.mobile-money-card small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* 13. Payment Method Selection */
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: white;
+    cursor: pointer;
+
+    transition: border-color 0.2s ease,
+                background 0.2s ease;
+}
+
+.payment-option:hover {
+    border-color: var(--primary);
+    background: #f8fcf9;
+}
+
+.payment-option:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.payment-option input[type="radio"] {
+    width: 17px;
+    height: 17px;
+
+    flex-shrink: 0;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.payment-option span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* 14. Submit Button */
+
+.pay-button,
+.secondary-button {
+    display: block;
+    width: 100%;
+    min-height: 52px;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.2s ease;
+}
+
+.pay-button {
+    margin-top: 28px;
+
+    background: var(--primary);
+    color: white;
+
+    box-shadow: 0 4px 12px rgba(8, 116, 67, 0.16);
+}
+
+.pay-button:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 6px 16px rgba(8, 116, 67, 0.22);
+}
+
+.pay-button:active,
+.secondary-button:active {
+    transform: scale(0.99);
+}
+
+.pay-button:focus-visible,
+.secondary-button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+/* 15. Confirmation Screen */
+
+.confirmation-card {
+    text-align: center;
+}
+
+.confirmation-card > p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.success-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 50%;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.receipt {
+    margin-top: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    overflow: hidden;
+    text-align: left;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 15px 17px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-row span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.receipt-row strong {
+    max-width: 65%;
+    font-size: 14px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+
+/* 16. Payment Status */
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding: 16px;
+
+    background: var(--warning-bg);
+    border-radius: 9px;
+
+    text-align: left;
+}
+
+.status span {
+    font-size: 14px;
+}
+
+.status strong {
+    color: var(--warning-text);
+    font-size: 13px;
+    text-align: right;
+}
+
+
+/* 17. Secondary Button */
+
+.secondary-button {
+    margin-top: 22px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.secondary-button:hover {
+    background: #d8eddf;
+}
+
+
+/* 18. Utility Classes */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* 19. Footer */
+
+footer {
+    padding: 22px 15px;
+    text-align: center;
+
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* 20. Tablet and Mobile */
+
+@media (max-width: 600px) {
+
+    .header {
+        min-height: 76px;
+        padding: 15px 5%;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .header-subtitle {
+        max-width: 120px;
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .container {
+        width: 94%;
+        margin: 24px auto;
+    }
+
+    .payment-card,
+    .confirmation-card {
+        padding: 23px 19px;
+        border-radius: 12px;
+    }
+
+    .card-heading h1,
+    .confirmation-card h1 {
+        font-size: 25px;
+    }
+
+    .section {
+        padding-top: 22px;
+        margin-top: 22px;
+    }
+
+    .section h2 {
+        font-size: 17px;
+    }
+
+    .mobile-money-info {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-money-card {
+        padding: 15px;
+    }
+
+    .mobile-money-card span {
+        font-size: 17px;
+    }
+
+    .category-option {
+        padding: 14px;
+    }
+
+    .amount-box strong {
+        font-size: 24px;
+    }
+
+    .receipt-row {
+        padding: 13px;
+        gap: 12px;
+    }
+}
+
+
+/* 21. Small Phones */
+
+@media (max-width: 380px) {
+
+    .header-subtitle {
+        max-width: 100px;
+        font-size: 10px;
+    }
+
+    .payment-card,
+    .confirmation-card {
+        padding: 19px 15px;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-box {
+        padding: 15px;
+    }
+
+    .amount-box strong {
+        font-size: 22px;
+    }
+
+    .status {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .status strong {
+        text-align: left;
+    }
+}

@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YPD Pay | LTI Payment</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <header class="header">
+        <div class="logo-section">
+    
+            <img
+                src="YPD.png"
+                alt="YPD Logo"
+                class="logo-image"
+            >
+    
+            <div class="logo-text">
+                <div class="logo">
+                    <span>YPD</span> Pay
+                </div>
+    
+                <div class="header-subtitle">
+                    Young People's and Children's Division 
+                </div>
+            </div>
+    
+        </div>
+    </header>
+    
+
+    <main class="container">
+
+        <!-- Payment Form -->
+        <section class="payment-card" id="paymentSection">
+
+            <div class="card-heading">
+                <h1>LTI Payment</h1>
+                <p>Leadership Training Institute 2026</p>
+
+                <div class="notice">
+                    <strong>Please enter your information correctly.</strong>
+                </div>
+            </div>
+
+            <form id="paymentForm">
+
+                <!-- Personal Information -->
+                <div class="section">
+                    <h2>Your Information</h2>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="e.g. 0971234567"
+                            autocomplete="tel"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conference">Conference</label>
+                        <input
+                            type="text"
+                            id="conference"
+                            name="conference"
+                            placeholder="e.g. NWZC"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area</label>
+                        <input
+                            type="text"
+                            id="area"
+                            name="area"
+                            placeholder="Enter your area"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="church">Church</label>
+                        <input
+                            type="text"
+                            id="church"
+                            name="church"
+                            placeholder="Enter your church"
+                            required
+                        >
+                    </div>
+                </div>
+
+               
+        <!-- Registration Category -->
+        <div class="section">
+            <h2>Registration Category</h2>
+
+            <div class="category-options">
+
+                <label class="category-option">
+                    <input
+                        type="radio"
+                        name="category"
+                        value="Ordinary YPDer"
+                        data-amount="150"
+                        required
+                    >
+
+                    <div>
+                        <strong>Ordinary YPDers</strong>
+                        <p>K150</p>
+                    </div>
+                </label>
+
+                <label class="category-option">
+                    <input
+                        type="radio"
+                        name="category"
+                        value="Area Presidents, Directors and LTI Delegates"
+                        data-amount="200"
+                    >
+
+                    <div>
+                        <strong>
+                            Area Presidents, Directors and all Delegates
+                            to the 2026 YPD LTI
+                        </strong>
+                        <p>K200</p>
+                    </div>
+                </label>
+
+                <label class="category-option">
+                    <input
+                        type="radio"
+                        name="category"
+                        value="Conference Presidents and Conference Directors"
+                        data-amount="350"
+                    >
+
+                    <div>
+                        <strong>
+                            Conference Presidents and Conference Directors
+                        </strong>
+                        <p>K350</p>
+                    </div>
+                </label>
+
+                <label class="category-option">
+                    <input
+                        type="radio"
+                        name="category"
+                        value="Episcopal Officers"
+                        data-amount="500"
+                    >
+
+                    <div>
+                        <strong>Episcopal Officers</strong>
+                        <p>K500</p>
+                    </div>
+                </label>
+
+            </div>
+        </div>
+
+
+                <!-- Payment Amount -->
+                <div class="section">
+                    <h2>Payment Amount</h2>
+
+                    <div class="amount-box">
+                        <span>Amount to Pay</span>
+                        <strong id="amount">K0.00</strong>
+                    </div>
+                </div>
+
+                <!-- Mobile Money Provider -->
+                <div class="section">
+                    <h2>Mobile Money</h2>
+
+                    <p class="help-text">
+                        Select your preferred Mobile Money provider.
+                        You will be guided through the payment process
+                        once the payment service is connected.
+                    </p>
+
+                    <div class="payment-methods">
+
+                        <label class="payment-option">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="Airtel Money"
+                                required
+                            >
+                            <span>Airtel Money</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="MTN Money"
+                            >
+                            <span>MTN Mobile Money</span>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="pay-button"
+                    id="submitButton"
+                >
+                    Continue to Payment
+                </button>
+
+                <p class="help-text">
+                    Your payment status will be confirmed through
+                    the connected payment service.
+                </p>
+
+            </form>
+        </section>
+
+        <!-- Payment Confirmation -->
+        <section
+            class="confirmation-card hidden"
+            id="confirmationSection"
+        >
+
+            <div class="success-icon">✓</div>
+
+            <h1 id="confirmationTitle">Payment Request Submitted</h1>
+
+            <p id="confirmationMessage">
+                Your payment request has been received.
+                The final payment status will be confirmed by
+                the Mobile Money provider.
+            </p>
+
+            <div class="receipt">
+
+                <div class="receipt-row">
+                    <span>Name</span>
+                    <strong id="receiptName"></strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Category</span>
+                    <strong id="receiptCategory"></strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Amount</span>
+                    <strong id="receiptAmount"></strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Payment Method</span>
+                    <strong id="receiptMethod"></strong>
+                </div>
+
+            </div>
+
+            <div class="status">
+                <span>Payment Status</span>
+                <strong id="paymentStatus">Pending</strong>
+            </div>
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="newPaymentButton"
+            >
+                Make Another Payment
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 YPD Pay</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
