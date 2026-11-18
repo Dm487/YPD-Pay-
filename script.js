@@ -1,165 +1,140 @@
 
-/* ==================================
-   YPD PAY - FRONTEND JAVASCRIPT
-   ================================== */
-
-// Registration fees
-const registrationFees = {
-    "Ordinary YPDer": 150,
-
-    "Area Presidents, Directors and LTI Delegates": 200,
-
-    "Conference Presidents and Conference Directors": 350,
-
-    "Episcopal Officers": 500
-};
-
-// Get HTML elements
-const registrationForm = document.getElementById("registrationForm");
+const form = document.getElementById("paymentForm");
 const amountDisplay = document.getElementById("amount");
-const paymentMessage = document.getElementById("paymentMessage");
+const submitButton = document.getElementById("submitButton");
 
-const categoryOptions = document.querySelectorAll(
+const paymentSection = document.getElementById("paymentSection");
+const confirmationSection = document.getElementById("confirmationSection");
+const formMessage = document.getElementById("formMessage");
+
+const categoryInputs = document.querySelectorAll(
     'input[name="category"]'
 );
 
-// Update registration fee
-categoryOptions.forEach((option) => {
+// Update registration amount when category changes
+categoryInputs.forEach(input => {
+    input.addEventListener("change", () => {
+        const amount = Number(input.dataset.amount);
 
-    option.addEventListener("change", function () {
-
-        const amount = registrationFees[this.value];
-
-        if (amount !== undefined) {
-            amountDisplay.textContent = `K${amount}`;
-        }
-
+        amountDisplay.textContent = `K${amount.toFixed(2)}`;
     });
-
 });
 
+// Submit registration
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-// ==================================
-// REGISTRATION FORM SUBMISSION
-// ==================================
+    const selectedCategory = document.querySelector(
+        'input[name="category"]:checked'
+    );
 
-if (registrationForm) {
+    const selectedMethod = document.querySelector(
+        'input[name="paymentMethod"]:checked'
+    );
 
-    registrationForm.addEventListener("submit", async function (event) {
+    if (!selectedCategory || !selectedMethod) {
+        showMessage("Please select your category and payment method.");
+        return;
+    }
 
-        event.preventDefault();
+    // Registration information sent to Supabase
+    const registration = {
+        p_full_name: document.getElementById("fullName").value.trim(),
+        p_phone_number: document.getElementById("phone").value.trim(),
+        p_conference: document.getElementById("conference").value.trim(),
+        p_area: document.getElementById("area").value.trim(),
+        p_church: document.getElementById("church").value.trim(),
+        p_registration_category: selectedCategory.value,
+        p_payment_method: selectedMethod.value,
+        p_transaction_reference: null
+    };
 
-        // Get selected registration category
-        const selectedCategory = document.querySelector(
-            'input[name="category"]:checked'
+    // Validate required information
+    if (Object.entries(registration).some(
+        ([key, value]) =>
+            key !== "p_transaction_reference" &&
+            (!value || !String(value).trim())
+    )) {
+        showMessage("Please complete all required fields.");
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+    showMessage("");
+
+    try {
+        const { data, error } = await supabaseClient.rpc(
+            "submit_registration",
+            registration
         );
 
-        // Get selected payment provider
-        const selectedProvider = document.querySelector(
-            'input[name="paymentMethod"]:checked'
+        if (error) {
+            console.error("Registration error:", error);
+            console.error("Error code:", error.code);
+            console.error("Error details:", error.details);
+            console.error("Error hint:", error.hint);
+
+            throw new Error(error.message);
+        }
+
+        if (!data) {
+            throw new Error(
+                "Registration was not confirmed by the database."
+            );
+        }
+
+        // Display registration confirmation
+        document.getElementById("receiptName").textContent =
+            registration.p_full_name;
+
+        document.getElementById("receiptCategory").textContent =
+            registration.p_registration_category;
+
+        document.getElementById("receiptAmount").textContent =
+            amountDisplay.textContent;
+
+        document.getElementById("receiptMethod").textContent =
+            registration.p_payment_method;
+
+        paymentSection.classList.add("hidden");
+        confirmationSection.classList.remove("hidden");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    } catch (error) {
+        console.error("Registration failed:", error);
+
+        showMessage(
+            error.message || "Unable to submit registration. Please try again."
         );
 
-        // Validate selections
-        if (!selectedCategory) {
-            alert("Please select a registration category.");
-            return;
-        }
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Registration";
+    }
+});
 
-        if (!selectedProvider) {
-            alert("Please select a payment method.");
-            return;
-        }
-
-        // Calculate amount from our fee list
-        const amount = registrationFees[selectedCategory.value];
-
-        if (amount === undefined) {
-            alert("Invalid registration category.");
-            return;
-        }
-
-        // Collect registration information
-        const formData = new FormData(registrationForm);
-
-        const registrationData = {
-            fullName: formData.get("fullName"),
-            phone: formData.get("phone"),
-            conference: formData.get("conference"),
-            area: formData.get("area"),
-            church: formData.get("church"),
-
-            category: selectedCategory.value,
-            amount: amount,
-
-            paymentMethod: selectedProvider.value
-        };
-
-        // Show processing message
-        const submitButton = registrationForm.querySelector(
-            'button[type="submit"]'
-        );
-
-        submitButton.disabled = true;
-        submitButton.textContent = "Processing...";
-
-        paymentMessage.textContent = "Preparing your payment request...";
-        paymentMessage.style.color = "inherit";
-
-        try {
-
-            // Send information to our backend
-            const response = await fetch("/api/payments", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(registrationData)
-
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(
-                    result.message || "Unable to process your request."
-                );
-            }
-
-            // Display payment status
-            if (result.status === "SUCCESSFUL") {
-
-                paymentMessage.textContent =
-                    "Payment successful! Your registration is confirmed.";
-
-            } else if (result.status === "PENDING") {
-
-                paymentMessage.textContent =
-                    "Payment request sent. Please check your phone and approve the payment.";
-
-            } else {
-
-                paymentMessage.textContent =
-                    result.message || "Payment could not be completed.";
-
-            }
-
-        } catch (error) {
-
-            console.error("Payment error:", error);
-
-            paymentMessage.textContent =
-                error.message || "Something went wrong. Please try again.";
-
-        } finally {
-
-            submitButton.disabled = false;
-            submitButton.textContent = "Continue to Payment";
-
-        }
-
-    });
-
+// Display messages
+function showMessage(message) {
+    formMessage.textContent = message;
 }
+
+// Start a new registration
+document.getElementById("newPaymentButton").addEventListener("click", () => {
+    form.reset();
+
+    amountDisplay.textContent = "K0.00";
+    formMessage.textContent = "";
+
+    confirmationSection.classList.add("hidden");
+    paymentSection.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});

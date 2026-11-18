@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YPD Pay | Executive Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo-section">
+        <img src="YPD.png" alt="YPD Logo" class="logo-image">
+        <div>
+            <div class="logo"><span>YPD</span> Pay</div>
+            <div class="header-subtitle">Executive Dashboard</div>
+        </div>
+    </div>
+</header>
+
+<main class="admin-container">
+
+    <!-- Login -->
+    <section class="admin-login" id="loginSection">
+
+        <h1>Executive Login</h1>
+
+        <p>
+            Enter the shared executive access password
+            to view LTI registrations and payments.
+        </p>
+
+        <form id="adminLoginForm">
+
+            <div class="form-group">
+                <label for="adminPassword">Executive Password</label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter executive password"
+                    required
+                >
+            </div>
+
+            <button type="submit"
+                    class="pay-button"
+                    id="loginButton">
+                Login
+            </button>
+
+            <p id="loginMessage" class="form-message"></p>
+
+        </form>
+
+        <a href="index.html">Back to Registration</a>
+
+    </section>
+
+
+    <!-- Dashboard -->
+    <section id="dashboardSection" class="hidden">
+
+        <div class="dashboard-heading">
+            <div>
+                <h1>LTI Registrations</h1>
+                <p>Leadership Training Institute 2026</p>
+            </div>
+
+            <button id="logoutButton" class="logout-button">
+                Logout
+            </button>
+        </div>
+
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>Total Registrations</span>
+                <strong id="totalRegistrations">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Confirmed Payments</span>
+                <strong id="confirmedPayments">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Awaiting Verification</span>
+                <strong id="pendingPayments">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Total Confirmed (ZMW)</span>
+                <strong id="totalCollected">K0.00</strong>
+            </div>
+
+        </div>
+
+
+        <div class="table-section">
+
+            <div class="table-heading">
+                <h2>Registered Members</h2>
+
+                <button id="refreshButton" class="refresh-button">
+                    Refresh
+                </button>
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="admin-table">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Conference</th>
+                            <th>Area</th>
+                            <th>Church</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Reference</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="registrationsTable">
+
+                        <tr>
+                            <td colspan="10">No records loaded.</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p id="dashboardMessage" class="form-message"></p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 YPD Pay</p>
+</footer>
+
+<script src="admin.js"></script>
+
+</body>
+</html>
