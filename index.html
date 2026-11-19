@@ -49,14 +49,22 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone"
-                           placeholder="0971234567" required>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="0971234567"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
                     <label for="conference">Conference</label>
-                    <input type="text" id="conference"
-                           placeholder="e.g. NWZC" required>
+                    <input
+                        type="text"
+                        id="conference"
+                        placeholder="e.g. NWZC"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
@@ -76,9 +84,13 @@
                 <div class="category-options">
 
                     <label class="category-option">
-                        <input type="radio" name="category"
-                               value="Ordinary YPDer"
-                               data-amount="150" required>
+                        <input
+                            type="radio"
+                            name="category"
+                            value="Ordinary YPDer"
+                            data-amount="150"
+                            required
+                        >
                         <div>
                             <strong>Ordinary YPDers</strong>
                             <p>K150</p>
@@ -86,29 +98,42 @@
                     </label>
 
                     <label class="category-option">
-                        <input type="radio" name="category"
-                               value="Area Presidents, Directors and LTI Delegates"
-                               data-amount="200">
+                        <input
+                            type="radio"
+                            name="category"
+                            value="Area Presidents, Directors and LTI Delegates"
+                            data-amount="200"
+                        >
                         <div>
-                            <strong>Area Presidents, Directors and all Delegates to the 2026 YPD LTI</strong>
+                            <strong>
+                                Area Presidents, Directors and all Delegates to the 2026 YPD LTI
+                            </strong>
                             <p>K200</p>
                         </div>
                     </label>
 
                     <label class="category-option">
-                        <input type="radio" name="category"
-                               value="Conference Presidents and Conference Directors"
-                               data-amount="350">
+                        <input
+                            type="radio"
+                            name="category"
+                            value="Conference Presidents and Conference Directors"
+                            data-amount="350"
+                        >
                         <div>
-                            <strong>Conference Presidents and Conference Directors</strong>
+                            <strong>
+                                Conference Presidents and Conference Directors
+                            </strong>
                             <p>K350</p>
                         </div>
                     </label>
 
                     <label class="category-option">
-                        <input type="radio" name="category"
-                               value="Episcopal Officers"
-                               data-amount="500">
+                        <input
+                            type="radio"
+                            name="category"
+                            value="Episcopal Officers"
+                            data-amount="500"
+                        >
                         <div>
                             <strong>Episcopal Officers</strong>
                             <p>K500</p>
@@ -132,29 +157,37 @@
 
                 <p class="help-text">
                     Select the Mobile Money service you intend to use.
-                    
                 </p>
 
                 <div class="payment-methods">
 
                     <label class="payment-option">
-                        <input type="radio" name="paymentMethod"
-                               value="Airtel Money" required>
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="Airtel Money"
+                            required
+                        >
                         <span>Airtel Money</span>
                     </label>
 
                     <label class="payment-option">
-                        <input type="radio" name="paymentMethod"
-                               value="MTN Money">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="MTN Money"
+                        >
                         <span>MTN Money</span>
                     </label>
 
                 </div>
             </div>
 
-            <button type="submit"
-                    class="pay-button"
-                    id="submitButton">
+            <button
+                type="submit"
+                class="pay-button"
+                id="submitButton"
+            >
                 Submit Registration
             </button>
 
@@ -163,9 +196,10 @@
         </form>
     </section>
 
-
-    <section class="confirmation-card hidden"
-             id="confirmationSection">
+    <section
+        class="confirmation-card hidden"
+        id="confirmationSection"
+    >
 
         <div class="success-icon">✓</div>
 
@@ -202,12 +236,18 @@
 
         <div class="status">
             <span>Payment Status</span>
-            <strong>Pending</strong>
+            <strong id="receiptPaymentStatus">
+                Awaiting payment
+            </strong>
         </div>
 
-        <button type="button"
-                class="secondary-button"
-                id="newPaymentButton">
+        <p id="paymentStatusMessage" class="form-message"></p>
+
+        <button
+            type="button"
+            class="secondary-button"
+            id="newPaymentButton"
+        >
             Make Another Registration
         </button>
 
@@ -223,5 +263,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>

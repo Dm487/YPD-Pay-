@@ -6,6 +6,8 @@ const submitButton = document.getElementById("submitButton");
 const paymentSection = document.getElementById("paymentSection");
 const confirmationSection = document.getElementById("confirmationSection");
 const formMessage = document.getElementById("formMessage");
+const paymentStatusMessage = document.getElementById("paymentStatusMessage");
+const receiptPaymentStatus = document.getElementById("receiptPaymentStatus");
 
 const categoryInputs = document.querySelectorAll(
     'input[name="category"]'
@@ -19,27 +21,19 @@ categoryInputs.forEach(input => {
     });
 });
 
-// Display messages
+// Display registration form messages
 function showMessage(message) {
     formMessage.textContent = message;
 }
 
-// Display payment result in the confirmation section
+// Display payment status in confirmation section
 function showPaymentStatus(message, isError = false) {
-    let statusElement = document.getElementById("paymentStatusMessage");
-
-    if (!statusElement) {
-        statusElement = document.createElement("p");
-        statusElement.id = "paymentStatusMessage";
-        confirmationSection.appendChild(statusElement);
-    }
-
-    statusElement.textContent = message;
-    statusElement.style.color = isError ? "#b42318" : "#176b3a";
+    paymentStatusMessage.textContent = message;
+    paymentStatusMessage.style.color = isError ? "#b42318" : "#176b3a";
 }
 
-// Show registration confirmation
-function showConfirmation(registration, registrationId) {
+// Display registration confirmation
+function showConfirmation(registration) {
     document.getElementById("receiptName").textContent =
         registration.p_full_name;
 
@@ -51,6 +45,8 @@ function showConfirmation(registration, registrationId) {
 
     document.getElementById("receiptMethod").textContent =
         registration.p_payment_method;
+
+    receiptPaymentStatus.textContent = "Awaiting payment";
 
     paymentSection.classList.add("hidden");
     confirmationSection.classList.remove("hidden");
@@ -78,6 +74,7 @@ form.addEventListener("submit", async (event) => {
         return;
     }
 
+    // Registration details
     const registration = {
         p_full_name: document.getElementById("fullName").value.trim(),
         p_phone_number: document.getElementById("phone").value.trim(),
@@ -89,7 +86,7 @@ form.addEventListener("submit", async (event) => {
         p_transaction_reference: null
     };
 
-    // Validate required registration information
+    // Validate required fields
     if (Object.entries(registration).some(
         ([key, value]) =>
             key !== "p_transaction_reference" &&
@@ -122,12 +119,16 @@ form.addEventListener("submit", async (event) => {
             );
         }
 
-        // STEP 2: Show the saved registration
-        showConfirmation(registration, registrationId);
+        console.log("Registration saved:", registrationId);
 
-        showPaymentStatus("Registration saved. Connecting to payment gateway...");
+        // STEP 2: Display registration confirmation
+        showConfirmation(registration);
 
-        // STEP 3: Initiate Ontech payment through Supabase Edge Function
+        showPaymentStatus(
+            "Registration saved. Connecting to Ontech payment gateway..."
+        );
+
+        // STEP 3: Call the deployed Supabase payment function
         submitButton.textContent = "Processing payment...";
 
         const { data: paymentData, error: paymentError } =
@@ -143,8 +144,10 @@ form.addEventListener("submit", async (event) => {
         if (paymentError) {
             console.error("Payment initiation error:", paymentError);
 
+            receiptPaymentStatus.textContent = "Not initiated";
+
             showPaymentStatus(
-                "Your registration has been saved, but we could not initiate your payment. Please do not register again. Contact the YPD administration for assistance.",
+                "Your registration was saved, but payment could not be initiated. Please contact YPD administration. Do not register again.",
                 true
             );
 
@@ -154,22 +157,25 @@ form.addEventListener("submit", async (event) => {
         if (!paymentData || paymentData.success !== true) {
             console.error("Unexpected payment response:", paymentData);
 
+            receiptPaymentStatus.textContent = "Not confirmed";
+
             showPaymentStatus(
-                "Your registration has been saved, but payment initiation could not be confirmed. Please do not register again. Contact the YPD administration.",
+                paymentData?.error ||
+                "Your registration was saved, but payment initiation could not be confirmed. Please contact YPD administration. Do not register again.",
                 true
             );
 
             return;
         }
 
-        // STEP 4: Display the payment result
-        const transactionId = paymentData.transaction_id;
+        // STEP 4: Display successful payment initiation
+        receiptPaymentStatus.textContent = "Payment request submitted";
 
         showPaymentStatus(
-            `Payment request initiated successfully. Amount: K${paymentData.amount}. Transaction reference: ${transactionId}. Please follow the payment prompt on your phone. Your payment will be confirmed after verification.`
+            `Payment request initiated. Amount: K${paymentData.amount}. Transaction reference: ${paymentData.transaction_id}. Please follow the payment prompt on your phone. Final payment confirmation is still pending.`
         );
 
-        console.log("Payment initiated:", paymentData);
+        console.log("Ontech payment response:", paymentData);
 
     } catch (error) {
         console.error("Registration failed:", error);
@@ -191,12 +197,8 @@ document.getElementById("newPaymentButton").addEventListener("click", () => {
 
     amountDisplay.textContent = "K0.00";
     formMessage.textContent = "";
-
-    const statusElement = document.getElementById("paymentStatusMessage");
-
-    if (statusElement) {
-        statusElement.remove();
-    }
+    paymentStatusMessage.textContent = "";
+    receiptPaymentStatus.textContent = "Awaiting payment";
 
     confirmationSection.classList.add("hidden");
     paymentSection.classList.remove("hidden");
